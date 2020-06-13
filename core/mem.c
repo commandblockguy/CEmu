@@ -6,6 +6,7 @@
 #include "flash.h"
 #include "control.h"
 #include "debug/debug.h"
+#include "debug/pipe.h"
 
 #include <assert.h>
 #include <string.h>
@@ -752,6 +753,18 @@ void mem_write_cpu(uint32_t addr, uint8_t value) {
                         switch (value) {
                             case 1:
                                 gui_console_clear();
+                                break;
+#ifdef PIPE_SUPPORT
+                            case PIPE_CHECK_COMMAND:
+                                pipe_check_command();
+                                break;
+                            case PIPE_SEND_DATA_COMMAND:
+                                pipe_send_data_command();
+                                break;
+                            case PIPE_RECV_DATA_COMMAND:
+                                pipe_receive_data_command();
+                                break;
+#endif
                             default:
                                 break;
                         }

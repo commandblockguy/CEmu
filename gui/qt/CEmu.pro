@@ -56,7 +56,7 @@ TRANSLATIONS += i18n/fr_FR.ts i18n/es_ES.ts i18n/nl_NL.ts
 CONFIG += c++11 console
 
 # Core options
-DEFINES += DEBUG_SUPPORT
+DEFINES += DEBUG_SUPPORT PIPE_SUPPORT
 
 # These options can be disabled / enabled depending on
 # compiler / library support for your toolchain
@@ -207,6 +207,7 @@ SOURCES += \
     ../../core/extras.c \
     ../../core/spi.c \
     ../../core/debug/debug.c \
+    ../../core/debug/pipe.c \
     ../../core/debug/zdis/zdis.c \
     ipc.cpp \
     main.cpp \
@@ -308,6 +309,7 @@ HEADERS  += \
     ../../core/os/os.h \
     ../../core/spi.h \
     ../../core/debug/debug.h \
+    ../../core/debug/pipe.h \
     ../../core/debug/zdis/zdis.h \
     ipc.h \
     utils.h \
