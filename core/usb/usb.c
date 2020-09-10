@@ -171,6 +171,8 @@ int usb_init_device(int argc, const char *const *argv,
         usb.device = usb_disconnected_device;
     } else if (!strcasecmp(argv[0], "dusb")) {
         usb.device = usb_dusb_device;
+    } else if (!strcasecmp(argv[0], "get_device_desc")) {
+        usb.device = usb_get_device_desc_device;
     } else {
         return ENOENT;
     }
@@ -185,6 +187,21 @@ int usb_init_device(int argc, const char *const *argv,
 
 static void usb_event(enum sched_item_id event) {
     (void)event;
+    static int hack;
+    switch (hack) {
+        case 0:
+            sched_repeat(event, 70000000);
+            ++hack;
+            break;
+        case 1: {
+            static const char *argv[] = {
+                "get_device_desc",
+            };
+            usb_init_device(sizeof argv / sizeof *argv, argv, NULL, NULL);
+            ++hack;
+            break;
+        }
+    }
 }
 
 static void usb_device_event(enum sched_item_id event) {
